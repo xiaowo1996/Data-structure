@@ -1,0 +1,71 @@
+# include<iostream>
+using namespace std;
+
+typedef struct node
+{
+	int data;
+	struct node *next;
+
+}NODE,*PNODE;
+
+PNODE create()
+{
+	int x;
+	PNODE head=(PNODE)malloc(sizeof(NODE));
+	head->next=NULL;
+		PNODE tail=head;
+	cin>>x;
+	for(int i=0;i<x;i++)
+	{
+		int d=rand()%20;
+		PNODE pnew=(PNODE)malloc(sizeof(NODE));
+		pnew->data=d;
+		tail->next=pnew;
+		pnew->next=NULL;
+		tail=tail->next;		
+	}
+	return head;
+}
+
+void traverse(PNODE p)
+{
+	PNODE head=p;
+	while(p->next)
+	{
+		p=p->next;
+		cout<<p->data<<" ";
+	}
+	printf("\n");
+}
+
+PNODE delete2(PNODE head)
+{
+	PNODE p=head->next;
+	while(p!=NULL)
+	{
+		PNODE q=p;
+		while(q->next!=NULL)
+		{
+			if(q->next->data==p->data)
+			{
+				q->next=q->next->next;
+			}
+			else
+			{
+				q=q->next;
+			}
+		}
+		p=p->next;
+	}
+	return head;
+}
+
+int main()
+{
+	PNODE p=NULL;
+	p=create();
+	traverse(p);
+	PNODE q=delete2(p);
+	traverse(q);
+	return 0;
+}
